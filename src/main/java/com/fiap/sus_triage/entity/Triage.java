@@ -2,6 +2,9 @@ package com.fiap.sus_triage.entity;
 
 import java.time.LocalDateTime;
 
+import com.fiap.sus_triage.enums.RiskLevel;
+import com.fiap.sus_triage.enums.TriageStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,7 +34,10 @@ public class Triage {
     private String problem;
 
     @Enumerated(EnumType.STRING)
-    private RiskClassification riskClassification;
+    private RiskLevel riskLevel;
 
-    private LocalDateTime triageDateHour;
+    @Enumerated(EnumType.STRING)
+    private TriageStatus status;
+
+    private LocalDateTime createdAt;
 }

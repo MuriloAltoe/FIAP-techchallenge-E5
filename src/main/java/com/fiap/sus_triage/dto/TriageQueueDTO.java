@@ -1,4 +1,6 @@
-package com.fiap.sus_triage.dto.response;
+package com.fiap.sus_triage.dto;
+
+import java.time.LocalDateTime;
 
 import com.fiap.sus_triage.enums.RiskLevel;
 
@@ -7,10 +9,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TriageResponseDTO {
-    
+public class TriageQueueDTO {
+
     private Long triageId;
     private String patientName;
-    private RiskLevel riskClassification;
-    private String priority;
+    private RiskLevel riskLevel;
+    private LocalDateTime waitingSince;
 }
