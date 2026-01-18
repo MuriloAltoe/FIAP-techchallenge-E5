@@ -24,7 +24,4 @@ public class Patient {
     private Integer age;
     private String gender;
 
-    
-
-
 }

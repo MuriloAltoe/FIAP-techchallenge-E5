@@ -24,30 +24,28 @@ public class TriageService {
     private final TriageRepository triageRepository;
     private final RiskLevelStrategy riskLevelStrategy;
 
-    public TriageService(PatientRepository patientRepository, 
-                         TriageRepository triageRepository, 
-                         RiskLevelStrategy riskLevelStrategy
-        ) {
+    public TriageService(PatientRepository patientRepository,
+            TriageRepository triageRepository,
+            RiskLevelStrategy riskLevelStrategy) {
         this.patientRepository = patientRepository;
         this.triageRepository = triageRepository;
         this.riskLevelStrategy = riskLevelStrategy;
     }
 
-    public TriageResponseDTO createTriage(TriageRequestDTO dto){
+    public TriageResponseDTO createTriage(TriageRequestDTO dto) {
 
         Patient patient = patientRepository.findById(dto.getPatientId())
-                          .orElseThrow(() -> new RuntimeException("Paciente não encontrado!"));
+                .orElseThrow(() -> new RuntimeException("Paciente não encontrado."));
 
         RiskLevel risk = riskLevelStrategy.classify(dto);
 
         Triage triage = new Triage(
-            null,
-            patient,
-            dto.getProblem(),
-            risk,
-            TriageStatus.WAITING,
-            LocalDateTime.now()
-        );
+                null,
+                patient,
+                dto.getProblem(),
+                risk,
+                TriageStatus.WAITING,
+                LocalDateTime.now());
 
         triageRepository.save(triage);
 
@@ -55,8 +53,7 @@ public class TriageService {
                 triage.getId(),
                 patient.getName(),
                 risk,
-                risk.name()
-        );
+                risk.name());
     }
 
     public List<TriageQueueDTO> getPrioritizedQueue() {
@@ -64,16 +61,41 @@ public class TriageService {
         return triageRepository.findByStatus(TriageStatus.WAITING)
                 .stream()
                 .sorted(
-                    Comparator
-                        .comparingInt((Triage t) -> t.getRiskLevel().getPriority())
-                        .thenComparing(Triage::getCreatedAt)
-                )
+                        Comparator
+                                .comparingInt((Triage t) -> t.getRiskLevel().getPriority())
+                                .thenComparing(Triage::getCreatedAt))
                 .map(triage -> new TriageQueueDTO(
                         triage.getId(),
                         triage.getPatient().getName(),
                         triage.getRiskLevel(),
-                        triage.getCreatedAt()
-                ))
+                        triage.getCreatedAt()))
                 .toList();
     }
+
+    public void startTriage(Long triageId) {
+
+        Triage triage = triageRepository.findById(triageId)
+                .orElseThrow(() -> new RuntimeException("Triagem não cadastrada."));
+
+        if (triage.getStatus() != TriageStatus.WAITING) {
+            throw new RuntimeException("Triagem não está aguardando.");
+        }
+
+        triage.setStatus(TriageStatus.IN_PROGRESS);
+        triageRepository.save(triage);
+    }
+
+    public void finishTriage(Long triageId) {
+
+        Triage triage = triageRepository.findById(triageId)
+                .orElseThrow(() -> new RuntimeException("Triagem não cadastrada."));
+
+        if (triage.getStatus() != TriageStatus.IN_PROGRESS) {
+            throw new RuntimeException("Triagem não está em progresso.");
+        }
+
+        triage.setStatus(TriageStatus.FINISHED);
+        triageRepository.save(triage);
+    }
+
 }
