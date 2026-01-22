@@ -1,6 +1,10 @@
 package com.fiap.sus_triage.entity;
 
+import com.fiap.sus_triage.enums.Gender;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,6 +26,8 @@ public class Patient {
 
     private String name;
     private Integer age;
-    private String gender;
+    
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
 }

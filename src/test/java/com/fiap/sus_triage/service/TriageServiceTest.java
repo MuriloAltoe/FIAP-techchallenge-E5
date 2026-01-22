@@ -5,6 +5,7 @@ import com.fiap.sus_triage.dto.request.TriageRequestDTO;
 import com.fiap.sus_triage.dto.response.TriageResponseDTO;
 import com.fiap.sus_triage.entity.Patient;
 import com.fiap.sus_triage.entity.Triage;
+import com.fiap.sus_triage.enums.Gender;
 import com.fiap.sus_triage.enums.RiskLevel;
 import com.fiap.sus_triage.enums.TriageStatus;
 import com.fiap.sus_triage.repository.PatientRepository;
@@ -43,7 +44,7 @@ class TriageServiceTest {
         @Test
         void shouldCreateTriageAndReturnResponse() {
 
-                Patient patient = new Patient(1L, "John Doe", 60, "M");
+                Patient patient = new Patient(1L, "John Doe", 60, Gender.M);
 
                 TriageRequestDTO request = new TriageRequestDTO();
                 request.setPatientId(1L);
@@ -84,9 +85,9 @@ class TriageServiceTest {
         @Test
         void shouldReturnQueueOrderedByRiskAndWaitingTime() {
 
-                Patient p1 = new Patient(1L, "Alice", 70, "F");
-                Patient p2 = new Patient(2L, "Bob", 40, "M");
-                Patient p3 = new Patient(3L, "Charlie", 30, "M");
+                Patient p1 = new Patient(1L, "Alice", 70, Gender.F);
+                Patient p2 = new Patient(2L, "Bob", 40, Gender.M);
+                Patient p3 = new Patient(3L, "Charlie", 30, Gender.M);
 
                 Triage t1 = new Triage(
                                 1L,
