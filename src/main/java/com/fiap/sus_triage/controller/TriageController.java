@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fiap.sus_triage.controller.swagger.TriageControllerSwaggerConfiguration;
 import com.fiap.sus_triage.dto.TriageQueueDTO;
 import com.fiap.sus_triage.dto.request.TriageRequestDTO;
 import com.fiap.sus_triage.dto.response.TriageResponseDTO;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/triagem")
 @RequiredArgsConstructor
-public class TriageController {
+public class TriageController implements TriageControllerSwaggerConfiguration {
 
     private final TriageService triageService;
 

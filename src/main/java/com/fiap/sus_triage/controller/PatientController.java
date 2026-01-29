@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fiap.sus_triage.controller.swagger.PatientControllerSwaggerConfiguration;
 import com.fiap.sus_triage.dto.request.PatientRequestDTO;
 import com.fiap.sus_triage.dto.response.PatientResponseDTO;
 import com.fiap.sus_triage.service.PatientService;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/paciente")
 @RequiredArgsConstructor
-public class PatientController {
+public class PatientController implements PatientControllerSwaggerConfiguration {
 
     private final PatientService patientService;
 
