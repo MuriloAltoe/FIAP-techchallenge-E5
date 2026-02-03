@@ -1,0 +1,227 @@
+{
+  "info": {
+    "name": "SUS Triage - Projeto Completo",
+    "description": "Collection completa da API SUS Triage com Pacientes e Triagens (Manchester Strategy)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Pacientes",
+      "item": [
+        {
+          "name": "Criar Paciente",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/paciente",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["paciente"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Oliveira\",\n  \"age\": 32,\n  \"gender\": \"FEMALE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Buscar Paciente por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/paciente/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["paciente", "1"]
+            }
+          }
+        },
+        {
+          "name": "Listar Pacientes (Paginado)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/paciente?page=0&size=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["paciente"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Paciente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/paciente/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["paciente", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Oliveira Santos\",\n  \"age\": 33,\n  \"gender\": \"FEMALE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Deletar Paciente",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/paciente/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["paciente", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Triagens",
+      "item": [
+        {
+          "name": "Triagem - RED",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/triagem",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor no peito intensa\",\n  \"painIntensity\": 9,\n  \"shortnessOfBreath\": true,\n  \"chestPain\": true,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 140,\n  \"systolicPressure\": 85,\n  \"oxygenSaturation\": 88,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Triagem - ORANGE",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/triagem",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Febre alta\",\n  \"painIntensity\": 8,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 120,\n  \"systolicPressure\": 110,\n  \"oxygenSaturation\": 95,\n  \"bodyTemperature\": 39.5,\n  \"vomiting\": false,\n  \"fever\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Triagem - YELLOW",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/triagem",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor abdominal moderada\",\n  \"painIntensity\": 5,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 90,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 97,\n  \"bodyTemperature\": 37.8,\n  \"vomiting\": true,\n  \"fever\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Triagem - GREEN",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/triagem",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor de cabeça leve\",\n  \"painIntensity\": 2,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 75,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 98,\n  \"bodyTemperature\": 36.8,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Triagem - BLUE",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "http://localhost:8080/triagem",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Consulta de rotina\",\n  \"painIntensity\": 0,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 70,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 99,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Consultar Fila de Triagem",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/triagem/fila",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem", "fila"]
+            }
+          }
+        },
+        {
+          "name": "Iniciar Triagem",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/triagem/1/start",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem", "1", "start"]
+            }
+          }
+        },
+        {
+          "name": "Finalizar Triagem",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/triagem/1/finish",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem", "1", "finish"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

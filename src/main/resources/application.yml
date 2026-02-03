@@ -13,3 +13,6 @@ spring:
     properties:
       hibernate:
         format-sql: true
+  sql:
+    init:
+      mode: always
