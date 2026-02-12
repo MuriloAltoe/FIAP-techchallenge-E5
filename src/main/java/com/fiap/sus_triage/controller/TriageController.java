@@ -31,9 +31,19 @@ public class TriageController implements TriageControllerSwaggerConfiguration {
         return ResponseEntity.ok(triageService.createTriage(dto));
     }
 
-    @GetMapping("/fila")
-    public ResponseEntity<List<TriageQueueDTO>> getQueue() {
-        return ResponseEntity.ok(triageService.getPrioritizedQueue());
+    @GetMapping("/fila/em_progresso")
+    public ResponseEntity<List<TriageQueueDTO>> getStartedQueue() {
+        return ResponseEntity.ok(triageService.getStartedQueue());
+    }
+
+    @GetMapping("/fila/aguardando")
+    public ResponseEntity<List<TriageQueueDTO>> getWaitingQueue() {
+        return ResponseEntity.ok(triageService.getWaitingQueue());
+    }
+
+    @GetMapping("/fila/finalizadas")
+    public ResponseEntity<List<TriageQueueDTO>> getFinishedQueue() {
+        return ResponseEntity.ok(triageService.getFinishedQueue());
     }
 
     @PostMapping("/{id}/start")

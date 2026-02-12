@@ -56,9 +56,41 @@ public class TriageService {
                 risk.name());
     }
 
-    public List<TriageQueueDTO> getPrioritizedQueue() {
+    public List<TriageQueueDTO> getWaitingQueue() {
 
         return triageRepository.findByStatus(TriageStatus.WAITING)
+                .stream()
+                .sorted(
+                        Comparator
+                                .comparingInt((Triage t) -> t.getRiskLevel().getPriority())
+                                .thenComparing(Triage::getCreatedAt))
+                .map(triage -> new TriageQueueDTO(
+                        triage.getId(),
+                        triage.getPatient().getName(),
+                        triage.getRiskLevel(),
+                        triage.getCreatedAt()))
+                .toList();
+    }
+
+    public List<TriageQueueDTO> getStartedQueue() {
+
+        return triageRepository.findByStatus(TriageStatus.IN_PROGRESS)
+                .stream()
+                .sorted(
+                        Comparator
+                                .comparingInt((Triage t) -> t.getRiskLevel().getPriority())
+                                .thenComparing(Triage::getCreatedAt))
+                .map(triage -> new TriageQueueDTO(
+                        triage.getId(),
+                        triage.getPatient().getName(),
+                        triage.getRiskLevel(),
+                        triage.getCreatedAt()))
+                .toList();
+    }
+
+    public List<TriageQueueDTO> getFinishedQueue() {
+
+        return triageRepository.findByStatus(TriageStatus.FINISHED)
                 .stream()
                 .sorted(
                         Comparator

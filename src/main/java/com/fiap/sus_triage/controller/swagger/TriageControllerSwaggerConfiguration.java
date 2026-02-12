@@ -58,7 +58,16 @@ public interface TriageControllerSwaggerConfiguration {
             @ApiResponse(responseCode = "200", description = "Fila de triagens retornada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    ResponseEntity<List<TriageQueueDTO>> getQueue();
+    
+    ResponseEntity<List<TriageQueueDTO>> getWaitingQueue(); 
+    
+    @Operation(summary = "Obter fila de triagens em progresso")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fila de triagens retornada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida")
+    })
+
+    ResponseEntity<List<TriageQueueDTO>> getStartedQueue();
 
     @Operation(summary = "Iniciar uma triagem")
     @ApiResponses({

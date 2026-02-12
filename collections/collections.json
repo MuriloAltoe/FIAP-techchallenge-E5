@@ -1,99 +1,36 @@
 {
   "info": {
-    "name": "SUS Triage - Projeto Completo",
-    "description": "Collection completa da API SUS Triage com Pacientes e Triagens (Manchester Strategy)",
+    "name": "Tech Challenge - Fase 05",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Pacientes",
+      "name": "1 - Pacientes (Base já carregada)",
       "item": [
         {
-          "name": "Criar Paciente",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": {
-              "raw": "http://localhost:8080/paciente",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["paciente"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Maria Oliveira\",\n  \"age\": 32,\n  \"gender\": \"FEMALE\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Buscar Paciente por ID",
+          "name": "Listar Pacientes",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:8080/paciente/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["paciente", "1"]
-            }
-          }
-        },
-        {
-          "name": "Listar Pacientes (Paginado)",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "http://localhost:8080/paciente?page=0&size=10",
+              "raw": "http://localhost:8080/paciente?page=0&size=20",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8080",
               "path": ["paciente"],
               "query": [
                 { "key": "page", "value": "0" },
-                { "key": "size", "value": "10" }
+                { "key": "size", "value": "20" }
               ]
-            }
-          }
-        },
-        {
-          "name": "Atualizar Paciente",
-          "request": {
-            "method": "PUT",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": {
-              "raw": "http://localhost:8080/paciente/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["paciente", "1"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Maria Oliveira Santos\",\n  \"age\": 33,\n  \"gender\": \"FEMALE\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Deletar Paciente",
-          "request": {
-            "method": "DELETE",
-            "url": {
-              "raw": "http://localhost:8080/paciente/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["paciente", "1"]
             }
           }
         }
       ]
     },
     {
-      "name": "Triagens",
+      "name": "2 - Criar Casos Clínicos",
       "item": [
         {
-          "name": "Triagem - RED",
+          "name": "RED - Emergência",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -106,12 +43,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor no peito intensa\",\n  \"painIntensity\": 9,\n  \"shortnessOfBreath\": true,\n  \"chestPain\": true,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 140,\n  \"systolicPressure\": 85,\n  \"oxygenSaturation\": 88,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor intensa no peito com falta de ar\",\n  \"painIntensity\": 10,\n  \"shortnessOfBreath\": true,\n  \"chestPain\": true,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 145,\n  \"systolicPressure\": 80,\n  \"oxygenSaturation\": 85,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
             }
           }
         },
         {
-          "name": "Triagem - ORANGE",
+          "name": "ORANGE - Muito Urgente",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -124,12 +61,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Febre alta\",\n  \"painIntensity\": 8,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 120,\n  \"systolicPressure\": 110,\n  \"oxygenSaturation\": 95,\n  \"bodyTemperature\": 39.5,\n  \"vomiting\": false,\n  \"fever\": true\n}"
+              "raw": "{\n  \"patientId\": 2,\n  \"problem\": \"Febre alta e dor intensa\",\n  \"painIntensity\": 8,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 120,\n  \"systolicPressure\": 110,\n  \"oxygenSaturation\": 95,\n  \"bodyTemperature\": 39.5,\n  \"vomiting\": false,\n  \"fever\": true\n}"
             }
           }
         },
         {
-          "name": "Triagem - YELLOW",
+          "name": "YELLOW - Urgente",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -142,12 +79,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor abdominal moderada\",\n  \"painIntensity\": 5,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 90,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 97,\n  \"bodyTemperature\": 37.8,\n  \"vomiting\": true,\n  \"fever\": true\n}"
+              "raw": "{\n  \"patientId\": 3,\n  \"problem\": \"Dor abdominal moderada\",\n  \"painIntensity\": 6,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 95,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 97,\n  \"bodyTemperature\": 37.8,\n  \"vomiting\": true,\n  \"fever\": true\n}"
             }
           }
         },
         {
-          "name": "Triagem - GREEN",
+          "name": "GREEN - Pouco Urgente",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -160,12 +97,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Dor de cabeça leve\",\n  \"painIntensity\": 2,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 75,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 98,\n  \"bodyTemperature\": 36.8,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+              "raw": "{\n  \"patientId\": 4,\n  \"problem\": \"Dor de cabeça leve\",\n  \"painIntensity\": 3,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 80,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 98,\n  \"bodyTemperature\": 36.8,\n  \"vomiting\": false,\n  \"fever\": false\n}"
             }
           }
         },
         {
-          "name": "Triagem - BLUE",
+          "name": "BLUE - Não Urgente",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -178,25 +115,30 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"patientId\": 1,\n  \"problem\": \"Consulta de rotina\",\n  \"painIntensity\": 0,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 70,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 99,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
+              "raw": "{\n  \"patientId\": 5,\n  \"problem\": \"Consulta de rotina\",\n  \"painIntensity\": 0,\n  \"shortnessOfBreath\": false,\n  \"chestPain\": false,\n  \"lossOfConsciousness\": false,\n  \"activeBleeding\": false,\n  \"seizures\": false,\n  \"heartRate\": 70,\n  \"systolicPressure\": 120,\n  \"oxygenSaturation\": 99,\n  \"bodyTemperature\": 36.5,\n  \"vomiting\": false,\n  \"fever\": false\n}"
             }
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "3 - Filas Dinâmicas",
+      "item": [
         {
-          "name": "Consultar Fila de Triagem",
+          "name": "Fila Aguardando",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:8080/triagem/fila",
+              "raw": "http://localhost:8080/triagem/fila/aguardando",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8080",
-              "path": ["triagem", "fila"]
+              "path": ["triagem", "fila", "aguardando"]
             }
           }
         },
         {
-          "name": "Iniciar Triagem",
+          "name": "Iniciar RED (ID 1)",
           "request": {
             "method": "POST",
             "url": {
@@ -209,7 +151,20 @@
           }
         },
         {
-          "name": "Finalizar Triagem",
+          "name": "Fila Em Progresso",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/triagem/fila/em_progresso",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem", "fila", "em_progresso"]
+            }
+          }
+        },
+        {
+          "name": "Finalizar RED (ID 1)",
           "request": {
             "method": "POST",
             "url": {
@@ -218,6 +173,19 @@
               "host": ["localhost"],
               "port": "8080",
               "path": ["triagem", "1", "finish"]
+            }
+          }
+        },
+        {
+          "name": "Fila Finalizadas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/triagem/fila/finalizadas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["triagem", "fila", "finalizadas"]
             }
           }
         }

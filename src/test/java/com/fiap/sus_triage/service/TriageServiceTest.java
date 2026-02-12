@@ -116,7 +116,105 @@ class TriageServiceTest {
                 when(triageRepository.findByStatus(TriageStatus.WAITING))
                                 .thenReturn(List.of(t1, t2, t3));
 
-                List<TriageQueueDTO> queue = triageService.getPrioritizedQueue();
+                List<TriageQueueDTO> queue = triageService.getWaitingQueue();
+
+                assertEquals(3, queue.size());
+
+                assertEquals("Bob", queue.get(0).getPatientName());
+                assertEquals(RiskLevel.RED, queue.get(0).getRiskLevel());
+
+                assertEquals("Alice", queue.get(1).getPatientName());
+                assertEquals(RiskLevel.YELLOW, queue.get(1).getRiskLevel());
+
+                assertEquals("Charlie", queue.get(2).getPatientName());
+                assertEquals(RiskLevel.GREEN, queue.get(2).getRiskLevel());
+        }
+
+        // getStartedQueue tests
+        @Test
+        void shouldReturnQueueOrderedByRiskAndStartedTime() {
+
+                Patient p1 = new Patient(1L, "Alice", 70, Gender.F);
+                Patient p2 = new Patient(2L, "Bob", 40, Gender.M);
+                Patient p3 = new Patient(3L, "Charlie", 30, Gender.M);
+
+                Triage t1 = new Triage(
+                                1L,
+                                p1,
+                                "Dor severa",
+                                RiskLevel.YELLOW,
+                                TriageStatus.IN_PROGRESS,
+                                LocalDateTime.now().minusMinutes(30));
+
+                Triage t2 = new Triage(
+                                2L,
+                                p2,
+                                "Falta de ar",
+                                RiskLevel.RED,
+                                TriageStatus.IN_PROGRESS,
+                                LocalDateTime.now().minusMinutes(5));
+
+                Triage t3 = new Triage(
+                                3L,
+                                p3,
+                                "Dor de cabeça leve",
+                                RiskLevel.GREEN,
+                                TriageStatus.IN_PROGRESS,
+                                LocalDateTime.now().minusMinutes(60));
+
+                when(triageRepository.findByStatus(TriageStatus.IN_PROGRESS))
+                                .thenReturn(List.of(t1, t2, t3));
+
+                List<TriageQueueDTO> queue = triageService.getStartedQueue();
+
+                assertEquals(3, queue.size());
+
+                assertEquals("Bob", queue.get(0).getPatientName());
+                assertEquals(RiskLevel.RED, queue.get(0).getRiskLevel());
+
+                assertEquals("Alice", queue.get(1).getPatientName());
+                assertEquals(RiskLevel.YELLOW, queue.get(1).getRiskLevel());
+
+                assertEquals("Charlie", queue.get(2).getPatientName());
+                assertEquals(RiskLevel.GREEN, queue.get(2).getRiskLevel());
+        }
+
+        // getFinishedQueue tests
+        @Test
+        void shouldReturnQueueOrderedByRiskAndFinishedTime() {
+
+                Patient p1 = new Patient(1L, "Alice", 70, Gender.F);
+                Patient p2 = new Patient(2L, "Bob", 40, Gender.M);
+                Patient p3 = new Patient(3L, "Charlie", 30, Gender.M);
+
+                Triage t1 = new Triage(
+                                1L,
+                                p1,
+                                "Dor severa",
+                                RiskLevel.YELLOW,
+                                TriageStatus.WAITING,
+                                LocalDateTime.now().minusMinutes(30));
+
+                Triage t2 = new Triage(
+                                2L,
+                                p2,
+                                "Falta de ar",
+                                RiskLevel.RED,
+                                TriageStatus.WAITING,
+                                LocalDateTime.now().minusMinutes(5));
+
+                Triage t3 = new Triage(
+                                3L,
+                                p3,
+                                "Dor de cabeça leve",
+                                RiskLevel.GREEN,
+                                TriageStatus.WAITING,
+                                LocalDateTime.now().minusMinutes(60));
+
+                when(triageRepository.findByStatus(TriageStatus.FINISHED))
+                                .thenReturn(List.of(t1, t2, t3));
+
+                List<TriageQueueDTO> queue = triageService.getFinishedQueue();
 
                 assertEquals(3, queue.size());
 
